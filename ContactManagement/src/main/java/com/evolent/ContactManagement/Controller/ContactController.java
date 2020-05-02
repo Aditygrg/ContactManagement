@@ -62,7 +62,7 @@ public class ContactController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<RestGenericPayload> updateContact(@PathVariable("id") Long id){
+	public ResponseEntity<RestGenericPayload> deleteContact(@PathVariable("id") Long id){
 		
 		RestGenericPayload payload = contactService.delete(id);
 		

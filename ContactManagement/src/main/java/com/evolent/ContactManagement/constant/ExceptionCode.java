@@ -6,6 +6,8 @@ public enum ExceptionCode {
 	
 	SOMETHING_WENT_WRONG("Something went wrong"),
 	
+	INVALID_REQUEST_BODY("Invalid Request Body"),
+	
 	FIELD_ALREADY_EXIST("%s already exist"),
 	
 	EMPTY_FIELD("%s is blank"),

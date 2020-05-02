@@ -6,6 +6,7 @@ import org.apache.logging.log4j.spi.LocationAwareLogger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -22,8 +23,14 @@ public class RestServiceExceptionAdvice {
 	public ResponseEntity<RestExceptionResponse> handleUncaughtException(Throwable e){
 		e.printStackTrace();
 		logger.error("Something went wrong in rest api " + e.getCause());
+		RestExceptionResponse exceptionResponse  = null;
+		if(e instanceof HttpMessageNotReadableException) {
+			exceptionResponse = new RestExceptionResponse(ExceptionCode.INVALID_REQUEST_BODY.getDescription(),HttpStatus.BAD_REQUEST);
+		}
+		else {
+			exceptionResponse = new RestExceptionResponse(ExceptionCode.SOMETHING_WENT_WRONG.getDescription(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
-		RestExceptionResponse exceptionResponse = new RestExceptionResponse(ExceptionCode.SOMETHING_WENT_WRONG.getDescription(),HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		return ResponseEntity.status(exceptionResponse.getStatus())
 				.contentType(MediaType.APPLICATION_JSON)

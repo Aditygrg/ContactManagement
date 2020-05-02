@@ -1,6 +1,5 @@
 package com.evolent.ContactManagement.util;
 
-import com.evolent.ContactManagement.bo.RestExceptionResponse;
 import com.evolent.ContactManagement.constant.ExceptionCode;
 import com.evolent.ContactManagement.dto.ContactDTO;
 import com.evolent.ContactManagement.exception.RestOperationFailedException;
@@ -29,7 +28,7 @@ public class Validate {
 	}
 	
 	public static boolean isStringNullOrEmpty(String str) {
-		return str == null || str.trim() .isEmpty(); 
+		return str == null || str.trim().isEmpty(); 
 	}
 	
 	public static boolean isPatternMatch(String s, String pattern) {

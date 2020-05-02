@@ -58,11 +58,7 @@ public class ContactServiceImpl implements ContactService{
 	@Override
 	public RestGenericPayload update(ContactDTO contactDTO, Long id) {
 		
-		if(id != contactDTO.getId()) {
-			Validate.restException(ExceptionCode.ID_UNMATCHED);
-		}
-		
-		Optional<Contact> contactOpt = contactRepository.findById(contactDTO.getId());
+		Optional<Contact> contactOpt = contactRepository.findById(id);
 		
 		if(!contactOpt.isPresent()) {
 			Validate.restException(ExceptionCode.CONTACT_NOT_FOUND);
@@ -116,10 +112,6 @@ public class ContactServiceImpl implements ContactService{
 
 	@Override
 	public RestGenericPayload activate(Long id, ContactStatusOnlyDTO contactStatusDTO) {
-		
-		if(id != contactStatusDTO.getId()) {
-			Validate.restException(ExceptionCode.ID_UNMATCHED);
-		}
 		
 		Optional<Contact> contactOpt = contactRepository.findById(id);
 		
