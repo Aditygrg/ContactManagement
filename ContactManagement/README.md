@@ -10,6 +10,7 @@ This application is packaged as a jar which has Tomcat embedded. No Tomcat or JB
 * Once successfully built, you can run the service by running below command:
 ```
         java -jar  build/libs/ContactManagement-0.0.1-SNAPSHOT.jar
+```
         
 ## About the Service
 
