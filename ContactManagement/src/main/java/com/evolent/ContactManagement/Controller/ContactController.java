@@ -1,6 +1,7 @@
 package com.evolent.ContactManagement.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.evolent.ContactManagement.bo.RestGenericPayload;
+import com.evolent.ContactManagement.constant.ExceptionCode;
 import com.evolent.ContactManagement.dto.ContactDTO;
 import com.evolent.ContactManagement.dto.ContactStatusOnlyDTO;
 import com.evolent.ContactManagement.entity.Contact;
+import com.evolent.ContactManagement.exception.RestOperationFailedException;
 import com.evolent.ContactManagement.repository.ContactRepository;
 import com.evolent.ContactManagement.service.ContactService;
+import com.evolent.ContactManagement.util.Validate;
 
 @RestController
 @RequestMapping(value="/contacts")
@@ -37,6 +41,12 @@ public class ContactController {
 	public List<Contact> getContacts(){
 		//return contactRepository.findAllByStatus(true);
 		return contactRepository.findAll();
+	}
+	
+	@GetMapping("/{id}")
+	public Contact getContact(@PathVariable("id") Long id){
+		//return contactRepository.findAllByStatus(true);
+		return contactRepository.findById(id).orElseThrow(() -> new RestOperationFailedException(ExceptionCode.CONTACT_NOT_FOUND,ExceptionCode.CONTACT_NOT_FOUND.getDescription()));
 	}
 	
 	@PostMapping
